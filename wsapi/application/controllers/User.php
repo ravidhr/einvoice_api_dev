@@ -27,6 +27,7 @@ class User extends REST_Controller {
     }
     
     function index_put() {
+        $postdata = ($_POST);
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
         
@@ -44,6 +45,9 @@ class User extends REST_Controller {
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
             } else {
+
+                /*ketikaberhasil insert maka tabel role assign otomatis akan bertambah*/
+                //$this->user_model->insert_role($postdata);
                 $this->response(array('status'=>'success','message'=>'Created'));
             }
         } else {
@@ -102,7 +106,7 @@ class User extends REST_Controller {
         // print_r($postdata);die;
         $this->load->model('user_model');
         if (isset($postdata)) {
-                $result= $this->user_model->getData($postdata);
+                $result= $this->user_model->get_all_new($postdata);
         } else {               
             $result= $this->user_model->get_all();
         }      
