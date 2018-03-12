@@ -5,60 +5,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 use Restserver\Libraries\REST_Controller;
 
-class User extends REST_Controller {
+class Email extends REST_Controller {
 
     function __construct($config = 'rest') {
         parent::__construct($config);
     }
 
-    
     function index_get() {
-        $id = $this->uri->segment(2);
-        //die($id);
-        $this->load->model('user_model');
-        if ($id == '') {
-                $user= $this->user_model->get_all();
+        /*$id = $this->uri->segment(2);
+        $id2 = $this->uri->segment(3);
+
+        $this->load->library('encrypt');
+		$this->encrypt->set_cipher(MCRYPT_DES);
+        $this->encrypt->set_mode(MCRYPT_MODE_CBC);*/
+        
+        $this->load->model('sendmail_model');
+        
+        $result= $this->sendmail_model->get_all();
+        /*if ($id == '') {
+
         } else {
-                $total_posts = $this->user_model->count_rows(); 
-                // retrieve the total number of posts
-                $user = $this->user_model->paginate(10,$total_posts);
-        }        
-        $this->response($user, 200);
+            if($id=='page' && $id2!==''){
+                $total_posts = $this->sendmail->count_rows(); // retrieve the total number of posts
+                $result = $this->sendmail->paginate(10,$total_posts);
+            } else {           
+                if($id!=='' && $id2==''){
+                    $result= $this->sendmail->get(array('NO_NOTA'=>$id));  
+                }
+            }
+        }     */   
+        $this->response($result, 200);
     }
     
     function index_put() {
-<<<<<<< HEAD
-        $postdata = ($_POST);
-=======
->>>>>>> alvian_devel
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
         
-        if($this->form_validation->run('user_put') != false){
-            $this->load->model('user_model');
-            $exist = $this->user_model->get(array('INV_USER_USERNAME'=> $this->put('INV_USER_USERNAME')));
+        if($this->form_validation->run('all_put') != false){
+            $this->load->model('sendmail_model');
+            $exist = $this->sendmail_model->get_by(array('NO_NOTA'=> $this->put('NO_NOTA')));
             if($exist){
                 $this->response( array('status'=>'failure', 
                 'message'=>'the specified user already exists',REST_Controller::HTTP_CONFLICT));
                 die;
             }
-            $user = $this->put();
-            $user_id = $this->user_model->insert($user);            
-            if (!$user_id){
+            $data = $this->put();
+            $data_id = $this->sendmail_model->insert($data);            
+            if (!$data_id){
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
             } else {
-<<<<<<< HEAD
-
-                /*ketikaberhasil insert maka tabel role assign otomatis akan bertambah*/
-                //$this->user_model->insert_role($postdata);
-=======
->>>>>>> alvian_devel
                 $this->response(array('status'=>'success','message'=>'Created'));
             }
-        } else {
-            $this->response( array('status'=>'failure', 
-            'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_BAD_REQUEST);
         }
     }
     
@@ -67,18 +65,17 @@ class User extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
         
-        if($this->form_validation->run('user_post') != false){
-            $this->load->model('user_model');
+        if($this->form_validation->run('email_post') != false){
+            $this->load->model('sendmail_model');
             $data = $this->post();
 
-            $safe_data = $this->user_model->get(array('INV_USER_ID'=>$this->post('INV_USER_ID')));
+            $safe_data = $this->sendmail_model->get(array('NO_NOTA'=>$this->post('NO_NOTA')));
             if(!isset($safe_data)){
                 $this->response( array('status'=>'failure', 
                 'message'=>'the specified no data to update',REST_Controller::HTTP_CONFLICT));
             }
 
-            // print_r($data);die;
-            $data_id = $this->user_model->update( $data,array('INV_USER_ID'=>$this->post('INV_USER_ID')));            
+            $data_id = $this->sendmail_model->update( $data,array('NO_NOTA'=>$this->post('NO_NOTA')));            
             if (!$data_id){
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
@@ -91,13 +88,12 @@ class User extends REST_Controller {
         }
     }
 
-    function index_delete() {
+    /*function index_delete() {
         $id = $this->uri->segment(2);
-        $this->load->model('user_model');
-        $data = $this->user_model->get_by(array('USERNAME'=>$id));
-        if (isset($data['USERNAME'])){
-            $data['ENABLED'] = '0';
-            $deleted = $this->user_model->update($id,$data);
+        $this->load->model('invheader_model');
+        $data = $this->invheader_model->get_by(array('TRX_NUMBER'=>$id));
+        if (isset($data['TRX_NUMBER'])){
+            $deleted = $this->invheader_model->delete($data);
             if (!$deleted){
                 $this->response( array('status'=>'failure', 
                 'message'=>'an expected error trying to update '),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
@@ -105,22 +101,24 @@ class User extends REST_Controller {
                 $this->response(array('status'=>'success','message'=>'deleted'));
             }
         }
-    }
-    
+    }*/
+
     function search_post() {
+        // $id = $this->uri->segment(3);
         $postdata = ($_POST);
-        // print_r($postdata);die;
-        $this->load->model('user_model');
+        // $data = $this->get();
+        // print_r('123');die;
+        $this->load->model('sendmail_model');
         if (isset($postdata)) {
-<<<<<<< HEAD
-                $result= $this->user_model->get_all_new($postdata);
-=======
-                $result= $this->user_model->getData($postdata);
->>>>>>> alvian_devel
+            $result= $this->sendmail_model->getData($postdata);
         } else {               
-            $result= $this->user_model->get_all();
+            $result= $this->sendmail_model->getData();
+                // $total_posts = $this->invheader_model->count_rows(); // retrieve the total number of posts
+                // $result = $this->invheader_model->paginate(10,$total_posts);
         }      
+
         $this->response($result, 200);  
     }
-
+    
 }
+

@@ -52,6 +52,7 @@ class Invheader_model extends MY_Model{
                     $where['HEADER_CONTEXT']='KPL';
                 } elseif ($module =='RUPARUPA') {
                     $where['HEADER_CONTEXT']='RP2';
+                 //   $where['HEADER_CONTEXT']='RUPA';
                 } elseif ($module =='BARANG') {
                     $where['HEADER_CONTEXT']='BRG';
                 } else {
@@ -66,6 +67,7 @@ class Invheader_model extends MY_Model{
             ->from($this->table)
             ->like($where)
             ->order_by('TRX_DATE', 'DESC');
+
         
         $query = $this->db->get();
         $result = $query->result_array();

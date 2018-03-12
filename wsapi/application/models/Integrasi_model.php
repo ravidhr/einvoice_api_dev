@@ -744,7 +744,11 @@ class Integrasi_model extends CI_Model {
         $select = $select1.' union '.$select2.' union '.$select3.' union '.$select4.' union '.$select5.' union '
                  .$select6.' union '.$select7.' union '.$select8.' union '.$select9.' union '.$select10;
 
+<<<<<<< HEAD
         die($select);
+=======
+        // die($select);
+>>>>>>> alvian_devel
         $query = $this->db1->query($select);
         $result = $query->result();
         return $result;
