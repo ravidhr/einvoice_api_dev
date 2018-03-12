@@ -681,6 +681,7 @@ class Integrasi_model extends CI_Model {
         $swhere4 = '';
         $swhere11 = '';
         if(!empty($data['ID_NOTA'])){
+            
             //print_r($data['ID_NOTA']);die;
             $swhere1 = $swhere1.' and A.ID_NOTA like \'%'.$data['ID_NOTA'].'%\'' ;
             $swhere2 = $swhere2.' and A.NO_NOTA like \'%'.$data['ID_NOTA'].'%\'';
