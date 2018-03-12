@@ -35,7 +35,6 @@ class User_model extends MY_Model {
                 $where['INV_USER_ID']=$data['INV_USER_ID'];
             }
         }
-<<<<<<< HEAD
         if(isset($data['INV_ROLE_ID'])){
             if($data['INV_ROLE_ID']!=''){
                 $where['INV_ROLE_ID']=$data['INV_ROLE_ID'];
@@ -86,19 +85,11 @@ class User_model extends MY_Model {
             ->join('INV_MST_ROLE','INV_MST_USER.INV_USER_ROLE_ID =INV_MST_ROLE.INV_ROLE_ID ')
             ->where($where)
             ->order_by('INV_USER_ID','DESC');
-=======
-        $this->db->select('*')
-            ->from($this->table)
-            ->like($where);
->>>>>>> alvian_devel
+
         $query = $this->db->get();
         $result = $query->result_array();
         
         return $result;
-<<<<<<< HEAD
-
-=======
->>>>>>> alvian_devel
     }
 
 }

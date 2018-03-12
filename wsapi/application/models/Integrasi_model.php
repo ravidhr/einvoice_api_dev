@@ -680,12 +680,13 @@ class Integrasi_model extends CI_Model {
         $swhere3 = '';
         $swhere4 = '';
         $swhere11 = '';
-        if($data['ID_NOTA']!=''){
-            // print_r($data['ID_NOTA']);die;
+        if(!empty($data['ID_NOTA'])){
+            
+            //print_r($data['ID_NOTA']);die;
             $swhere1 = $swhere1.' and A.ID_NOTA like \'%'.$data['ID_NOTA'].'%\'' ;
             $swhere2 = $swhere2.' and A.NO_NOTA like \'%'.$data['ID_NOTA'].'%\'';
         }
-        if($data['ID_REQ']!=''){
+        if(!empty($data['ID_REQ'])){
             // print_r($data['ID_REQ']);die;
             $swhere11 = $swhere1;
             $swhere1 = $swhere11.' and A.ID_REQ like \'%'.$data['ID_REQ'].'%\'';
@@ -744,11 +745,8 @@ class Integrasi_model extends CI_Model {
         $select = $select1.' union '.$select2.' union '.$select3.' union '.$select4.' union '.$select5.' union '
                  .$select6.' union '.$select7.' union '.$select8.' union '.$select9.' union '.$select10;
 
-<<<<<<< HEAD
-        die($select);
-=======
+
         // die($select);
->>>>>>> alvian_devel
         $query = $this->db1->query($select);
         $result = $query->result();
         return $result;

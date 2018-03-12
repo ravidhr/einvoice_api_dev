@@ -27,10 +27,7 @@ class User extends REST_Controller {
     }
     
     function index_put() {
-<<<<<<< HEAD
         $postdata = ($_POST);
-=======
->>>>>>> alvian_devel
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
         
@@ -48,12 +45,9 @@ class User extends REST_Controller {
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
             } else {
-<<<<<<< HEAD
-
                 /*ketikaberhasil insert maka tabel role assign otomatis akan bertambah*/
                 //$this->user_model->insert_role($postdata);
-=======
->>>>>>> alvian_devel
+
                 $this->response(array('status'=>'success','message'=>'Created'));
             }
         } else {
@@ -112,11 +106,7 @@ class User extends REST_Controller {
         // print_r($postdata);die;
         $this->load->model('user_model');
         if (isset($postdata)) {
-<<<<<<< HEAD
                 $result= $this->user_model->get_all_new($postdata);
-=======
-                $result= $this->user_model->getData($postdata);
->>>>>>> alvian_devel
         } else {               
             $result= $this->user_model->get_all();
         }      
