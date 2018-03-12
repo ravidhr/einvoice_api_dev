@@ -58,8 +58,6 @@ class Sendmail_model extends MY_Model{
             $resultEnd[] = $value;
         }
         
-        // echo print_r($resultEnd);die();
-        // echo json_encode($result);die();
         return $resultEnd;
     }
     
