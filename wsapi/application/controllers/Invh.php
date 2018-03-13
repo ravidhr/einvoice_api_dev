@@ -8,7 +8,6 @@ use Restserver\Libraries\REST_Controller;
 class Invh extends REST_Controller {
 
     function __construct($config = 'rest') {
-        
         parent::__construct($config);
     }
 
@@ -16,15 +15,10 @@ class Invh extends REST_Controller {
         $id = $this->uri->segment(2);
         $id2 = $this->uri->segment(3);
 
-        $this->load->library('encrypt');
-		$this->encrypt->set_cipher(MCRYPT_DES);
-        $this->encrypt->set_mode(MCRYPT_MODE_CBC);
-        
         $this->load->model('invheader_model');
-        
+        //----
         if ($id == '') {
                 $result= $this->invheader_model->get_all();
-
         } else {
             if($id=='page' && $id2!==''){
                 $total_posts = $this->invheader_model->count_rows(); // retrieve the total number of posts
@@ -38,6 +32,21 @@ class Invh extends REST_Controller {
         $this->response($result, 200);
     }
     
+    function search1_get() {
+        $id = $this->uri->segment(3);
+        // die($id);
+        // $data = $this->get();
+        $this->load->model('invheader_model');
+        if ($isset(sdata)) {
+                $result= $this->invheader_model->get(array('TRX_NUMBER'=>''));
+        } else {               
+                $this->response(array('status'=>'failure'), 404);
+                // $total_posts = $this->invheader_model->count_rows(); // retrieve the total number of posts
+                // $result = $this->invheader_model->paginate(10,$total_posts);
+        }        
+    }
+    
+
     function index_put() {
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
@@ -69,7 +78,7 @@ class Invh extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
         
-        if($this->form_validation->run('all_put') != false){
+        if($this->form_validation->run('all_put') != true){
             $this->load->model('invheader_model');
             $data = $this->post();
 
@@ -79,6 +88,8 @@ class Invh extends REST_Controller {
                 'message'=>'the specified user already in used',REST_Controller::HTTP_CONFLICT));
                 die;
             }
+			//echo "TRX NUMBER  ".$id."<br>";
+			
             $data_id = $this->invheader_model->update( $id, $data);            
             if (!$data_id){
                 $this->response( array('status'=>'failure', 
@@ -87,8 +98,8 @@ class Invh extends REST_Controller {
                 $this->response(array('status'=>'success','message'=>'updated'));
             }
         } else {
-            $this->response( array('status'=>'failure', 
-            'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_BAD_REQUEST);
+            $this->response( array('ELS status'=>'failure', 
+            'ELS message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_BAD_REQUEST);
         }
     }
 
@@ -107,21 +118,5 @@ class Invh extends REST_Controller {
         }
     }
 
-    function search_post() {
-        // $id = $this->uri->segment(3);
-        $postdata = ($_POST);
-        // $data = $this->get();
-        // print_r('123');die;
-        $this->load->model('invheader_model');
-        if (isset($postdata)) {
-                $result= $this->invheader_model->getData($postdata);
-        } else {               
-            $result= $this->invheader_model->getData();
-                // $total_posts = $this->invheader_model->count_rows(); // retrieve the total number of posts
-                // $result = $this->invheader_model->paginate(10,$total_posts);
-        }      
-        $this->response($result, 200);  
-    }
-    
 }
 

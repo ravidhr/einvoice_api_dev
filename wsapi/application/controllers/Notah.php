@@ -14,12 +14,9 @@ class Notah extends REST_Controller {
     function index_get() {
         $id = $this->uri->segment(2);
         $id2 = $this->uri->segment(3);
-        // $id3 = $this->get();
-        // print_r($id3);die;
 
         $this->load->model('nota_header_model');
         if ($id == '') {
-                // $where = 'STATUS=S';
                 $result= $this->nota_header_model->get_all();
         } else {
             if($id=='page' && $id2!==''){
@@ -27,7 +24,7 @@ class Notah extends REST_Controller {
                 $result = $this->nota_header_model->paginate(10,$total_posts);
             } else {           
                 if($id!=='' && $id2==''){
-                    $result= $this->nota_header_model->get(array('ID_NOTA'=>$id));  
+                    $result= $this->nota_header_model->get(array('ID_NUM'=>$id));  
                 }
             }
         }        
@@ -36,12 +33,13 @@ class Notah extends REST_Controller {
     function index_put() {
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
-        
+			
         if($this->form_validation->run('notah_put') != false){
+			
             $this->load->model('nota_header_model');
-            $exist = $this->nota_header_model->get(array('ID_NOTA'=> $this->put('ID_NOTA')));
-            // print_r($exist);
-            // die;
+            $exist = $this->nota_header_model->get(array('ID_NUM'=> $this->put('ID_NUM')));
+            //print_r("APAKAH ADA DITES DULU EXISTS : ".$exist);
+            //die;
             if(($exist==null)){                
                 $data = $this->put();
                 $data_id = $this->nota_header_model->insert($data); 
@@ -57,8 +55,8 @@ class Notah extends REST_Controller {
                 die;
             }
         } else {
-            $this->response( array('status'=>'failure', 
-            'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_BAD_REQUEST);
+            $this->response( array('ELS status'=>'failure', 
+            'ELS message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_BAD_REQUEST);
         }
     }
 
@@ -66,36 +64,68 @@ class Notah extends REST_Controller {
         $id = $this->uri->segment(2);
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
+				
         
         if($this->form_validation->run('notah_post') != false){
             $this->load->model('nota_header_model');
-            $data = $this->post();
+            $data = $this->post();	
 
-            $safe_data = $this->nota_header_model->get(array('ID_NOTA'=>$this->post('ID_NOTA')));
+			/*echo "count data ". count($data);
+			echo $data['ID_NUM']."<br>";
+			echo $data['PRODUCT_NAME']."<br>";
+			echo $data['PRICE']."<br>";
+			die();*/	
+		
+
+            $safe_data = $this->nota_header_model->get(array(
+			'BILLER_REQUEST_ID'=>$this->post('BILLER_REQUEST_ID'),
+			'TRX_NUMBER'=>$this->post('TRX_NUMBER'),
+			'ORG_ID'=>$this->post('ORG_ID'),
+			'TRX_DATE'=>$this->post('TRX_DATE'),
+			'TRX_CLASS'=>$this->post('TRX_CLASS'),
+			'CURRENCY_CODE'=>$this->post('CURRENCY_CODE'),
+			'CUSTOMER_NUMBER'=>$this->post('CUSTOMER_NUMBER'),
+			'STATUS'=>$this->post('STATUS'),
+			'HEADER_CONTEXT'=>$this->post('HEADER_CONTEXT')
+			));
+			
             if(!isset($safe_data)){
                 $this->response( array('status'=>'failure', 
                 'message'=>'the specified no data to update',REST_Controller::HTTP_CONFLICT));
             }
 
-            $data_id = $this->nota_header_model->update( $data,array('ID_NOTA'=>$this->post('ID_NOTA')));            
-            if (!$data_id){
+            $data_id = $this->nota_header_model->insert($data,array(
+			'BILLER_REQUEST_ID'=>$_POST['BILLER_REQUEST_ID'],
+			'TRX_NUMBER'=>$_POST['TRX_NUMBER'],
+			'ORG_ID'=>$_POST['ORG_ID'],
+			'TRX_DATE'=>'sysdate',//$_POST['TRX_DATE'],
+			'TRX_CLASS'=>$_POST['TRX_CLASS'],
+			'CURRENCY_CODE'=>$_POST['CURRENCY_CODE'],
+			'CUSTOMER_NUMBER'=>$_POST['CUSTOMER_NUMBER'],
+			'STATUS'=>$_POST['STATUS'],
+			'HEADER_CONTEXT'=>$_POST['HEADER_CONTEXT']
+			));            
+            			
+			if (!$data_id){
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
             } else {
+				
                 $this->response(array('status'=>'success','message'=>'updated'));
             }
         } else {
-            $this->response( array('status'=>'failure', 
-            'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_BAD_REQUEST);
+            $this->response( array('ELS status'=>'failure', 
+            'ELS message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_BAD_REQUEST);
         }
     }
 
     function index_delete() {
         $id = $this->uri->segment(2);
-        $this->load->model('entity_model');
-        $data = $this->nota_header_model->get(array('ID_NOTA'=>$this->delete('ID_NOTA')));
+        $this->load->model('nota_header_model');
+        $data = $this->nota_header_model->get(array('ID_NUM'=>$this->delete('ID_NUM')));
         if (isset($data)){
-            $deleted = $this->nota_header_model->force_delete(array('ID_NOTA'=>$this->delete('ID_NOTA')));
+			
+            $deleted = $this->nota_header_model->force_delete(array('ID_NUM'=>$this->delete('ID_NUM')));
             if (!$deleted){
                 $this->response( array('status'=>'failure', 
                 'message'=>'an expected error trying to delete '),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);

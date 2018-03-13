@@ -1,6 +1,6 @@
 <?php
 
-class Nota_all2_model extends MY_Model {
+class nota_all2_model extends MY_Model {
 
     public $_database_connection = 'itos';
     public $table = 'TTH_NOTA_ALL2';

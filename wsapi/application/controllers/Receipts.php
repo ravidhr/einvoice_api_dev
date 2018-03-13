@@ -20,7 +20,7 @@ class Receipts extends REST_Controller {
                 $this->response($rcp, 200);
         } else {
                 $rcp= $this->receipts_model->get($id);
-                if (isset($rcp['TRX_NUMBER'])) {
+                if (isset($rcp['RECEIPT_NUMBER'])) {
                     $this->response($rcp, 200);
                 } else {
                     $this->response(array('status' => 'failure', 'message'=>'the spesify id could not be f0und',404));

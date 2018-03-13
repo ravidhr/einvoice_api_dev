@@ -399,9 +399,7 @@ class MY_Model extends CI_Model
                 $this->_prep_after_write();
                 // $id = $this->_database->insert_id();
                 // $return = $this->trigger('after_create',$id);
-                
-                // return $id;
-                return TRUE;
+                return $id;
             }
             return FALSE;
         }
@@ -464,21 +462,18 @@ class MY_Model extends CI_Model
      */
     public function update($data = NULL, $column_name_where = NULL, $escape = TRUE)
     {
-        // print_r($data);die;
         if(!isset($data) && $this->validated!=FALSE)
         {
-            // die('1');
             $data = $this->validated;
             $this->validated = FALSE;
         }
         elseif(!isset($data))
         {
-            // die('2');
             $this->_database->reset_query();
             return FALSE;
         }
         // Prepare the data...
-        //$data = $this->_prep_before_write($data);
+        $data = $this->_prep_before_write($data);
 
         //now let's see if the array is a multidimensional one (multiple rows insert)
         $multi = $this->is_multidimensional($data);
@@ -508,17 +503,14 @@ class MY_Model extends CI_Model
                     $this->_database->where($column_name_where, $column_value);
                 }
             }
-
             if($escape)
             {
                 if($this->_database->update($this->table, $data))
                 {
-                    #ERROR PHP 7
-                    // $this->_prep_after_write();
-                    // $affected = $this->_database->affected_rows();
-                    // $return = $this->trigger('after_update',$affected);
-                    // return $return;
-                    return TRUE;
+                    $this->_prep_after_write();
+                    $affected = $this->_database->affected_rows();
+                    $return = $this->trigger('after_update',$affected);
+                    return $return;
                 }
             }
             else

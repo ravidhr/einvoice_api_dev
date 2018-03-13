@@ -304,7 +304,7 @@ $db['invoice_rupa2_prod'] = array(
 
 $db['ebs_simkeu_prod'] = array(
 	'dsn'	=> '',
-	'hostname' => 'dcdbqa.indonesiaport.co.id:1527/TEST',	
+	'hostname' => '10.10.40.30:1527/TEST',	
 	'username' => 'apps',
 	'password' => 'apps',
 	'database' => 'ebs_simkeu_prod',

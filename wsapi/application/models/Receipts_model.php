@@ -1,12 +1,13 @@
 <?php
 
-class Receipts_model extends MY_Model {
+class receipts_model extends MY_Model {
     
-    public $table = 'XEINVC_AR_RECEIPTS_HEADER';
-    public $primary_key = 'RECEIPT_NUMBER';
-    protected $return_type = 'array';
     public function __construct()
 	{
+        $this->_database_connection = 'invoice_consolidasi';
+        $this->table = 'XEINVC_AR_RECEIPTS_HEADER';
+        $this->primary_key = 'RECEIPT_NUMBER';
+
 		parent::__construct();
 	}
 

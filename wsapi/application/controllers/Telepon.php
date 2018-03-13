@@ -7,36 +7,22 @@ use Restserver\Libraries\REST_Controller;
 
 class Telepon extends REST_Controller {
 
-    function __construct($config = 'rest') {        
+    function __construct($config = 'rest') {
         parent::__construct($config);
     }
 
+    
     function index_get() {
-        //secure token
-        // $this->load->model('mst_user_model');
-        // $headers = $this->input->request_headers();
-        // print_r($headers);die;
-        // $this->mst_user_model->check_user($headers);
-        //-----------------------
-
         $id = $this->uri->segment(2);
-        $id2 = $this->uri->segment(3);
         // die($id);
         $this->load->model('telepon_model');
-        //----
         if ($id == '') {
-                $result= $this->telepon_model->get_all();
+                $user= $this->telepon_model->get_all();
         } else {
-            if($id=='page' && $id2!==''){
                 $total_posts = $this->telepon_model->count_rows(); // retrieve the total number of posts
-                $result = $this->telepon_model->paginate(10,$total_posts);
-            } else {           
-                if($id!=='' && $id2==''){
-                    $result= $this->telepon_model->get(array('ID'=>$id));  
-                }
-            }
+                $user = $this->telepon_model->paginate(10,$total_posts);
         }        
-        $this->response($result, 200);
+        $this->response($user, 200);
     }
     
     function index_put() {

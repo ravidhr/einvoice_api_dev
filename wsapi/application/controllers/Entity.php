@@ -42,17 +42,11 @@ class Entity extends REST_Controller {
             if(($exist==null)){                
                 $data = $this->put();
                 $data_id = $this->entity_model->insert($data); 
-                $lastId = 0;
-                $lastId = $this->entity_model->getLastId($data); 
-                if (!$data_id){
+                if ($data_id){
                     $this->response( array('status'=>'failure', 
                     'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
                 } else {
-                    $this->response(array(
-                                            'status'=>'success',
-                                            'message'=>'Created',
-                                            'lastId' => $lastId
-                                        ));
+                    $this->response(array('status'=>'success','message'=>'Created'));
                 }
             } else {
                 $this->response( array('status'=>'failure', 
@@ -68,7 +62,7 @@ class Entity extends REST_Controller {
     function index_post() {
         $id = $this->uri->segment(2);
         $this->load->library('form_validation');
-        $this->form_validation->set_data($this->put());
+        $this->form_validation->set_data($this->post());
         
         if($this->form_validation->run('entity_post') != false){
             $this->load->model('entity_model');
@@ -109,18 +103,6 @@ class Entity extends REST_Controller {
             $this->response( array('status'=>'failure', 
             'message'=>'no data found ',REST_Controller::HTTP_CONFLICT));
         }
-    }
-
-    function search_post() {
-        $postdata = ($_POST);
-        // print_r($postdata);die;
-        $this->load->model('entity_model');
-        if (isset($postdata)) {
-                $result= $this->entity_model->getData($postdata);
-        } else {               
-            $result= $this->entity_model->get_all();
-        }      
-        $this->response($result, 200);  
     }
 
 }

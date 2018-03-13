@@ -37,17 +37,17 @@ class Bank extends REST_Controller {
         
         if($this->form_validation->run('bank_put') != false){
             $this->load->model('bank_model');
-            $exist = $this->bank_model->get(array('INV_BANK_NAME'=> $this->put('INV_BANK_NAME')));
+            $exist = $this->bank_model->get(array('INV_BANK_ID'=> $this->put('INV_BANK_ID')));
             // print_r($exist);
             // die;
             if(($exist==null)){                
                 $data = $this->put();
                 $data_id = $this->bank_model->insert($data); 
                 if ($data_id){
-                    $this->response(array('status'=>'success','message'=>'Created'));
-                } else {
                     $this->response( array('status'=>'failure', 
                     'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
+                } else {
+                    $this->response(array('status'=>'success','message'=>'Created'));
                 }
             } else {
                 $this->response( array('status'=>'failure', 
@@ -65,17 +65,17 @@ class Bank extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->post());
         
-        if($this->form_validation->run('bank_post') != false){
-            $this->load->model('bank_model');
+        if($this->form_validation->run('entity_post') != false){
+            $this->load->model('entity_model');
             $data = $this->post();
 
-            $safe_data = $this->bank_model->get(array('INV_BANK_ID'=>$this->post('INV_BANK_ID')));
+            $safe_data = $this->entity_model->get(array('INV_ENTITY_ID'=>$this->post('INV_ENTITY_ID')));
             if(!isset($safe_data)){
                 $this->response( array('status'=>'failure', 
                 'message'=>'the specified no data to update',REST_Controller::HTTP_CONFLICT));
             }
 
-            $data_id = $this->bank_model->update( $data,array('INV_BANK_ID'=>$this->post('INV_BANK_ID')));            
+            $data_id = $this->entity_model->update( $data,array('INV_ENTITY_ID'=>$this->post('INV_ENTITY_ID')));            
             if (!$data_id){
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
@@ -90,10 +90,10 @@ class Bank extends REST_Controller {
 
     function index_delete() {
         $id = $this->uri->segment(2);
-        $this->load->model('bank_model');
-        $data = $this->bank_model->get(array('INV_BANK_ID'=>$this->delete('INV_BANK_ID')));
+        $this->load->model('entity_model');
+        $data = $this->entity_model->get(array('INV_ENTITY_ID'=>$this->delete('INV_ENTITY_ID')));
         if (isset($data)){
-            $deleted = $this->bank_model->force_delete(array('INV_BANK_ID'=>$this->delete('INV_BANK_ID')));
+            $deleted = $this->entity_model->force_delete(array('INV_ENTITY_ID'=>$this->delete('INV_ENTITY_ID')));
             if (!$deleted){
                 $this->response( array('status'=>'failure', 
                 'message'=>'an expected error trying to delete '),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
@@ -106,14 +106,4 @@ class Bank extends REST_Controller {
         }
     }
 
-    function search_post() {
-        $postdata = ($_POST);
-        $this->load->model('bank_model');
-        if (isset($postdata)) {
-                $result= $this->bank_model->getData($postdata);
-        } else {               
-            $result= $this->bank_model->get_all();
-        }      
-        $this->response($result, 200);  
-    }
 }

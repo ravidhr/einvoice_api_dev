@@ -8,10 +8,10 @@ no telp         : +628156237689
 email           : gagat.rahina@sigma.co.id
 
 
-web service ini digunakan untuk memasukkan data ke table staging konsolidasi XEINVC_AR_INVOICE_HEADER
+web service ini digunakan untuk memasukkan data ke table staging konsolidasi XEINVC_AR_RECEIPTS_HEADER
 dengan menggunakan package di database konsolidasi xeinvc_api_konsolidasi_pkg
 **/
-   
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
@@ -32,7 +32,7 @@ class SimopReceiptHeader extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
 		//---------------------------------------	
-        //call db 	konsolidsi	
+        //call db 		
 		$this->invoice_consolidasi_db = $this->load->database('invoice_consolidasi',true);
         if($this->form_validation->run('simop_receipt_header_post') != false){
             $this->load->model('Simop_receipt_header_model');

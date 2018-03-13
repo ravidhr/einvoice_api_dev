@@ -6,12 +6,6 @@ $config = array(
     ),
     'all_post' => array(
     ),
-    'signbank_put' => array(
-        array('field' => 'INV_BANK_ID', 'label'=> 'INV_BANK_ID', 'rules'=> 'trim|required'),
-    ),
-    'signbank_post' => array(
-        array('field' => 'INV_SIGNBANK_ID', 'label'=> 'INV_SIGNBANK_ID', 'rules'=> 'trim|required'),
-    ),
     'userrole_put' => array(
         array('field' => 'INV_USER_ID', 'label'=> 'INV_USER_ID', 'rules'=> 'trim|required'),
     ),
@@ -23,10 +17,9 @@ $config = array(
     ),
     'role_post' => array(
         array('field' => 'INV_ROLE_ID', 'label'=> 'INV_ROLE_ID', 'rules'=> 'trim|required'),
-        //array('field' => 'INV_UNIT_CODE', 'label'=> 'INV_UNIT_CODE', 'rules'=> 'trim|required'),
     ),
     'redaksi_put' => array(
-        array('field' => 'INV_NOTA_JENIS', 'label'=> 'INV_NOTA_JENIS', 'rules'=> 'trim|required'),
+        array('field' => 'INV_NOTA_LAYANAN', 'label'=> 'INV_NOTA_LAYANAN', 'rules'=> 'trim|required'),
     ),
     'redaksi_post' => array(
         array('field' => 'INV_REDAKSI_ID', 'label'=> 'INV_REDAKSI_ID', 'rules'=> 'trim|required'),
@@ -147,67 +140,91 @@ $config = array(
         array('field' => 'USERNAME', 'label'=> 'USERNAME', 'rules'=> 'trim|required|alpha_dash'),
         array('field' => 'PASSWORD', 'label'=> 'PASSWORD', 'rules'=> 'trim|required|min_length[8]|max_length[16]'),
     ),
-
-    //start gagat 23 jan 2018 
+   //start gagat 23 jan 2018 
     'simop_uper_header_post' => array(
-        array('field' => 'IN_SOURCE_INVOICE', 'label'=> 'IN_SOURCE_INVOICE', 'rules'=> 'trim|required'),
+		array('field' => 'IN_SOURCE_INVOICE', 'label'=> 'IN_SOURCE_INVOICE', 'rules'=> 'trim|required'),
         array('field' => 'ORG_ID', 'label'=> 'ORG_ID', 'rules'=> 'trim|required'),
         array('field' => 'RECEIPT_NUMBER', 'label'=> 'RECEIPT_NUMBER', 'rules'=> 'trim|required'),
         array('field' => 'RECEIPT_ACCOUNT', 'label'=> 'RECEIPT_ACCOUNT', 'rules'=> 'trim|required'),
         array('field' => 'CUSTOMER_NUMBER', 'label'=> 'CUSTOMER_NUMBER', 'rules'=> 'trim|required'),
         array('field' => 'CURRENCY_CODE', 'label'=> 'CURRENCY_CODE', 'rules'=> 'trim|required'),
     ),
-    'simop_kapal_create_invoice_post' => array(
-        array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
+	'simop_kapal_create_invoice_post' => array(
+		array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
         array('field' => 'ORG_ID', 'label'=> 'ORG_ID', 'rules'=> 'trim|required'),
         array('field' => 'JENIS_NOTA', 'label'=> 'JENIS_NOTA', 'rules'=> 'trim|required'),
     ),
-    'simop_barang_create_invoice_post' => array(
-        array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
+	'simop_barang_create_invoice_post' => array(
+		array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
         array('field' => 'ORG_ID', 'label'=> 'ORG_ID', 'rules'=> 'trim|required'),
         array('field' => 'JENIS_NOTA', 'label'=> 'JENIS_NOTA', 'rules'=> 'trim|required'),
     ),
-    'simop_rupa_create_invoice_post' => array(
-        array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
+	'simop_rupa_create_invoice_post' => array(
+		array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
         array('field' => 'ORG_ID', 'label'=> 'ORG_ID', 'rules'=> 'trim|required'),
         array('field' => 'JENIS_NOTA', 'label'=> 'JENIS_NOTA', 'rules'=> 'trim|required'),
-    ),  
-    'simop_invoice_header_post' => array(
-        array('field' => 'SOURCE_INVOICE', 'label'=> 'SOURCE_INVOICE', 'rules'=> 'trim|required'),
-        array('field' => 'BILLER_REQUEST_ID', 'label'=> 'BILLER_REQUEST_ID', 'rules'=> 'trim|required'),
+    ),	
+	'simop_invoice_header_post' => array(
+		array('field' => 'SOURCE_INVOICE', 'label'=> 'SOURCE_INVOICE', 'rules'=> 'trim|required'),
+		array('field' => 'BILLER_REQUEST_ID', 'label'=> 'BILLER_REQUEST_ID', 'rules'=> 'trim|required'),
         array('field' => 'ORG_ID', 'label'=> 'ORG_ID', 'rules'=> 'trim|required'),
         array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
-        array('field' => 'TRX_DATE', 'label'=> 'TRX_DATE', 'rules'=> 'trim|required'),
-        array('field' => 'TRX_CLASS', 'label'=> 'TRX_CLASS', 'rules'=> 'trim|required'),
-        array('field' => 'CURRENCY_CODE', 'label'=> 'CURRENCY_CODE', 'rules'=> 'trim|required'),
-        array('field' => 'CUSTOMER_NUMBER', 'label'=> 'CUSTOMER_NUMBER', 'rules'=> 'trim|required'),
-        array('field' => 'STATUS', 'label'=> 'STATUS', 'rules'=> 'trim|required'),
-        array('field' => 'HEADER_CONTEXT', 'label'=> 'HEADER_CONTEXT', 'rules'=> 'trim|required'),
-        array('field' => 'HEADER_SUB_CONTEXT', 'label'=> 'HEADER_SUB_CONTEXT', 'rules'=> 'trim|required'),
-        array('field' => 'TERMINAL', 'label'=> 'TERMINAL', 'rules'=> 'trim|required'),      
+		array('field' => 'TRX_DATE', 'label'=> 'TRX_DATE', 'rules'=> 'trim|required'),
+		array('field' => 'TRX_CLASS', 'label'=> 'TRX_CLASS', 'rules'=> 'trim|required'),
+		array('field' => 'CURRENCY_CODE', 'label'=> 'CURRENCY_CODE', 'rules'=> 'trim|required'),
+		array('field' => 'CUSTOMER_NUMBER', 'label'=> 'CUSTOMER_NUMBER', 'rules'=> 'trim|required'),
+		array('field' => 'STATUS', 'label'=> 'STATUS', 'rules'=> 'trim|required'),
+		array('field' => 'HEADER_CONTEXT', 'label'=> 'HEADER_CONTEXT', 'rules'=> 'trim|required'),
+		array('field' => 'HEADER_SUB_CONTEXT', 'label'=> 'HEADER_SUB_CONTEXT', 'rules'=> 'trim|required'),				
     ),
-    'simop_invoice_detail_post' => array(
-        array('field' => 'BILLER_REQUEST_ID', 'label'=> 'BILLER_REQUEST_ID', 'rules'=> 'trim|required'),
+	'simop_invoice_detail_post' => array(
+		array('field' => 'BILLER_REQUEST_ID', 'label'=> 'BILLER_REQUEST_ID', 'rules'=> 'trim|required'),
         array('field' => 'TRX_NUMBER', 'label'=> 'TRX_NUMBER', 'rules'=> 'trim|required'),
-        array('field' => 'LINE_NUMBER', 'label'=> 'LINE_NUMBER', 'rules'=> 'trim|required'),
-        array('field' => 'TAX_FLAG', 'label'=> 'TAX_FLAG', 'rules'=> 'trim|required'),
-        array('field' => 'SERVICE_TYPE', 'label'=> 'SERVICE_TYPE', 'rules'=> 'trim|required'),      
+		array('field' => 'LINE_NUMBER', 'label'=> 'LINE_NUMBER', 'rules'=> 'trim|required'),
+		array('field' => 'TAX_FLAG', 'label'=> 'TAX_FLAG', 'rules'=> 'trim|required'),
+		array('field' => 'SERVICE_TYPE', 'label'=> 'SERVICE_TYPE', 'rules'=> 'trim|required'),		
     ),
-    'Ebs_run_uper_post' => array(
-        array('field' => 'IN_RECEIPT_NUMBER', 'label'=> 'IN_RECEIPT_NUMBER', 'rules'=> 'trim|required'),
+	'Ebs_run_uper_post' => array(
+		array('field' => 'IN_RECEIPT_NUMBER', 'label'=> 'IN_RECEIPT_NUMBER', 'rules'=> 'trim|required'),
         array('field' => 'IN_ORG_ID', 'label'=> 'IN_ORG_ID', 'rules'=> 'trim|required'),
-        array('field' => 'IN_SOURCE', 'label'=> 'IN_SOURCE', 'rules'=> 'trim|required'),
+		array('field' => 'IN_SOURCE', 'label'=> 'IN_SOURCE', 'rules'=> 'trim|required'),
+	),
+	'simop_receipt_header_post' => array(
+		array('field' => 'RECEIPT_NUMBER', 'label'=> 'RECEIPT_NUMBER', 'rules'=> 'trim|required'),
     ),
-    'simop_receipt_header_post' => array(
-        array('field' => 'RECEIPT_NUMBER', 'label'=> 'RECEIPT_NUMBER', 'rules'=> 'trim|required'),
+	'simop_update_lunas_konsolidasi_post' => array(
+		array('field' => 'STATUS_LUNAS', 'label'=> 'STATUS_LUNAS', 'rules'=> 'trim|required'),
     ),
-    'simop_update_lunas_konsolidasi_post' => array(
-        array('field' => 'STATUS_LUNAS', 'label'=> 'STATUS_LUNAS', 'rules'=> 'trim|required'),
+	'simop_kapal_create_uper_post' => array(
+		array('field' => 'KD_PPKB', 'label'=> 'KD_PPKB', 'rules'=> 'trim|required'),
     ),
-    'simop_kapal_create_uper_post' => array(
-        array('field' => 'RECEIPT_NUMBER', 'label'=> 'RECEIPT_NUMBER', 'rules'=> 'trim|required'),
+	'simop_kapal_create_dpjk_post' => array(
+		array('field' => 'NO_UKK', 'label'=> 'NO_UKK', 'rules'=> 'trim|required'),
+		array('field' => 'KD_PPKB', 'label'=> 'KD_PPKB', 'rules'=> 'trim|required'),		
     ),
-    //end gagat 23 jan 2018 
+	'simop_kapal_create_dtjk_post' => array(
+		array('field' => 'NO_UKK', 'label'=> 'NO_UKK', 'rules'=> 'trim|required'),			
+    ),
+	'simop_create_receipt_post' => array(
+		array('field' => 'RECEIPT_NUMBER', 'label'=> 'RECEIPT_NUMBER', 'rules'=> 'trim|required'),
+		array('field' => 'ORG_ID', 'label'=> 'ORG_ID', 'rules'=> 'trim|required'),
+		array('field' => 'BANK_ID', 'label'=> 'BANK_ID', 'rules'=> 'trim|required'),
+		array('field' => 'RECEIPT_METHOD', 'label'=> 'RECEIPT_METHOD', 'rules'=> 'trim|required'),
+		array('field' => 'RECEIPT_ACCOUNT', 'label'=> 'RECEIPT_ACCOUNT', 'rules'=> 'trim|required'),
+    ),
+	'simop_kapal_list_transaksi_post' => array(
+		array('field' => 'KD_CABANG', 'label'=> 'KD_CABANG', 'rules'=> 'trim|required'),
+    ),
+	'simop_kapal_list_dkk_post' => array(
+		array('field' => 'KD_CABANG', 'label'=> 'KD_CABANG', 'rules'=> 'trim|required'),
+    ),
+	'simop_rupa_list_transaksi_post' => array(
+		array('field' => 'KD_CABANG', 'label'=> 'KD_CABANG', 'rules'=> 'trim|required'),
+    ),
+	'simop_barang_list_transaksi_post' => array(
+		array('field' => 'KD_CABANG', 'label'=> 'KD_CABANG', 'rules'=> 'trim|required'),
+    ),
+	//end gagat 23 jan 2018 
 );
 
         // array('field' => 'email_address', 'label'=> 'email address', 'rules'=> 'trim|required|valid_email'),

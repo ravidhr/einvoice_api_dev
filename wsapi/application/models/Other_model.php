@@ -1,5 +1,5 @@
 <?php
-class Other_model extends CI_Model{
+class other_model extends CI_Model{
 
 	private $db1;
 
@@ -16,13 +16,12 @@ class Other_model extends CI_Model{
 	}
 
 	public function getQuery($select){
-		// $his->load->database();
-		$this->db1 = $this->load->database('itos',true);
-		$query = $this->db1->query($select);
+		$his->load->database();
+		$query = $this->db->query($select);
 		$row = $query->row_array();
 		return $result;
 	}
-	
+
 	public function getTerbilang($amount){
 		$this->load->database();
 		$sql =    'select terbilang ('.$amount.') as nilai from dual';

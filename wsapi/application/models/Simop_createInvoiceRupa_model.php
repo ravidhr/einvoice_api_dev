@@ -1,6 +1,6 @@
 <?php
 
-class Simop_createInvoiceRupa_model extends MY_Model {
+class simop_createInvoiceRupa_model extends MY_Model {
 
     
     // public $_database_connection = 'itos';

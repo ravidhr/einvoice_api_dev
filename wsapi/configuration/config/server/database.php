@@ -75,13 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.32.85:1521/ESERVICEDB',
+	'hostname' =>'10.10.32.85:1521/ESERVICEDB',
 	'username' => 'INVOICE',
 	'password' => 'invoiceIPC',
-	'database' => 'invoice_consolidasi',
+	'database' => '',
 	'dbdriver' => 'oci8',
 	'dbprefix' => '',
-	//'port' 	   =>'10.10.33.56',
 	'pconnect' => TRUE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
@@ -98,13 +97,12 @@ $db['default'] = array(
 
 $db['consolidasi'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.32.85:1521/ESERVICEDB',
+	'hostname' => '10.10.32.85:1521/ESERVICEDB',	
 	'username' => 'INVOICE',
 	'password' => 'invoiceIPC',
 	'database' => 'invoice_consolidasi',
 	'dbdriver' => 'oci8',
 	'dbprefix' => '',
-	//'port' 	   =>'10.10.33.56',
 	'pconnect' => TRUE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
@@ -121,13 +119,12 @@ $db['consolidasi'] = array(
 
 $db['invoice_consolidasi'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.32.85:1521/ESERVICEDB',
+	'hostname' => '10.10.32.85:1521/ESERVICEDB',	
 	'username' => 'INVOICE',
 	'password' => 'invoiceIPC',
 	'database' => 'invoice_consolidasi',
 	'dbdriver' => 'oci8',
 	'dbprefix' => '',
-	//'port' 	   =>'10.10.33.56',
 	'pconnect' => TRUE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
@@ -144,38 +141,10 @@ $db['invoice_consolidasi'] = array(
 
 $db['itos'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.32.150:1521/jambitosdbqa',	
-	//'hostname' => '10.10.33.150:1521/ITOS_BILLING',	
-	//'username' => 'itos_billing',
-	'username' => 'ITOS_BILLING',
+	'hostname' => '10.10.32.150:1521/jambitosdb',	
+	'username' => 'itos_billing',
 	'password' => 'itos_BILLING',
-	//'database' => 'db_itos_jambi',
-	'database' => 'jambitosdbqa',
-	'dbdriver' => 'oci8',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
-
-$db['jambitosdbqa'] = array(
-	'dsn'	=> '',
-	'hostname' => '10.10.32.150:1521/jambitosdbqa',	
-	//'hostname' => '10.10.33.150:1521/ITOS_BILLING',	
-	//'username' => 'itos_billing',
-	'username' => 'ITOS_BILLING',
-	'password' => 'itos_BILLING',
-	// 'database' => 'db_itos_jambi', 10.10.33.150
-	'database' => 'jambitosdbqa',
+	'database' => 'db_itos_jambi',
 	'dbdriver' => 'oci8',
 	'dbprefix' => '',
 	'pconnect' => TRUE,
@@ -194,7 +163,7 @@ $db['jambitosdbqa'] = array(
 
 $db['invoice_kapal_prod'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.32.118:1521/peldb',	
+	'hostname' => '10.10.33.118:1521/peldb',	
 	'username' => 'kapal_prod',
 	'password' => 'kapal_prod',
 	'database' => 'invoice_kapal_prod',
@@ -214,76 +183,9 @@ $db['invoice_kapal_prod'] = array(
 	'save_queries' => TRUE
 );
 
-$db['invoice_kapal_cabang'] = array(
-	'dsn'	=> '',
-	'hostname' => '10.10.32.118:1521/peldb',	
-	'username' => 'kapal_cabang',
-	'password' => 'kapal_cabang',
-	'database' => 'invoice_kapal_cabang',
-	'dbdriver' => 'oci8',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
-
-$db['invoice_barang_prod'] = array(
-	'dsn'	=> '',
-	'hostname' => '10.10.32.118:1521/peldb',	
-	'username' => 'barang_prod',
-	'password' => 'barang_prod',
-	'database' => 'invoice_barang_prod',
-	'dbdriver' => 'oci8',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
-
-$db['invoice_barang_cabang'] = array(
-	'dsn'	=> '',
-	'hostname' => '10.10.32.118:1521/peldb',	
-	'username' => 'barang_cabang',
-	'password' => 'barang_cabang',
-	'database' => 'invoice_barang_cabang',
-	'dbdriver' => 'oci8',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
-
-
 $db['invoice_rupa2_prod'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.10.32.118:1521/peldb',	
+	'hostname' => '10.10.33.118:1521/peldb',	
 	'username' => 'rupa2_prod',
 	'password' => 'rupa2_prod',
 	'database' => 'invoice_rupa2_prod',
@@ -302,31 +204,6 @@ $db['invoice_rupa2_prod'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-
-$db['ebs_simkeu_prod'] = array(
-	'dsn'	=> '',
-	'hostname' => 'dcdbqa.indonesiaport.co.id:1527/TEST',	
-	'username' => 'apps',
-	'password' => 'apps',
-	'database' => 'ebs_simkeu_prod',
-	'dbdriver' => 'oci8',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
-
-
-
 
 
 
