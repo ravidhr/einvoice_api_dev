@@ -12,7 +12,7 @@ class Simop_GetInvoiceBarang_model extends MY_Model {
     public function __construct()
 	{
         $this->_database_connection = 'invoice_barang_prod';
-		$this->table = 'IPCTPK_NOTA_DETAIL';
+		$this->table = 'XEINVC_NOTA_BARANG_DETAIL_V';
 		$this->primary_key = 'TRX_NUMBER';
 		$this->before_create[] = 'prep_data';
 

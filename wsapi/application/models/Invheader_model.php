@@ -1,15 +1,18 @@
 <?php
 
-class Invheader_model extends MY_Model{
-    //public $_database_connection = 'consolidasi';
-    public $table = 'XEINVC_AR_INVOICE_HEADER';
-    public $primary_key = 'TRX_NUMBER';
-    protected $return_type = 'array';
-
+class invheader_model extends MY_Model {
+    
+    
     public function __construct()
-    {
+	{
+        //$this->_database_connection = 'consolidasi';
+        $this->_database_connection = 'invoice_consolidasi';
+        $this->table = 'XEINVC_AR_INVOICE_HEADER';
+        $this->primary_key = 'TRX_NUMBER';
 
-        parent::__construct();
+        // $this->before_create = array( 'timestamps' );
+
+		parent::__construct();
     }
 
     public function getData($data){
@@ -72,4 +75,5 @@ class Invheader_model extends MY_Model{
         return $result;
     }
     
+                
 }

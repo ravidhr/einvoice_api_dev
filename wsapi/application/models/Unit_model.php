@@ -1,6 +1,6 @@
 <?php
 
-class Unit_model extends MY_Model {
+class unit_model extends MY_Model {
     
     public function __construct()
     {

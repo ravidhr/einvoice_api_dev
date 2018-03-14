@@ -21,7 +21,7 @@ class Nota extends REST_Controller {
         } else {
             if($id=='page' && $id2!==''){
                 $total_posts = $this->nota_model->count_rows(); // retrieve the total number of posts
-                $result = $this->entity_model->paginate(10,$total_posts);
+                $result = $this->nota_model->paginate(10,$total_posts);
             } else {           
                 if($id!=='' && $id2==''){
                     $result= $this->nota_model->get(array('INV_NOTA_ID'=>$id));  
@@ -35,6 +35,8 @@ class Nota extends REST_Controller {
         $this->form_validation->set_data($this->put());
         
         if($this->form_validation->run('nota_put') != false){
+			
+			
             $this->load->model('nota_model');
             $exist = $this->nota_model->get(array('INV_NOTA_ID'=> $this->put('INV_NOTA_ID')));
             // print_r($exist);
@@ -42,7 +44,7 @@ class Nota extends REST_Controller {
             if(($exist==null)){                
                 $data = $this->put();
                 $data_id = $this->nota_model->insert($data); 
-                if (!$data_id){
+                if ($data_id){
                     $this->response( array('status'=>'failure', 
                     'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
                 } else {
@@ -69,13 +71,12 @@ class Nota extends REST_Controller {
             $data = $this->post();
 
             $safe_data = $this->nota_model->get(array('INV_NOTA_ID'=>$this->post('INV_NOTA_ID')));
-            
             if(!isset($safe_data)){
                 $this->response( array('status'=>'failure', 
                 'message'=>'the specified no data to update',REST_Controller::HTTP_CONFLICT));
             }
 
-            $data_id = $this->nota_model->update( $data,array('INV_NOTA_CODE'=>$this->post('INV_NOTA_CODE')));            
+            $data_id = $this->nota_model->update( $data,array('INV_NOTA_ID'=>$this->post('INV_NOTA_ID')));            
             if (!$data_id){
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
@@ -91,9 +92,9 @@ class Nota extends REST_Controller {
     function index_delete() {
         $id = $this->uri->segment(2);
         $this->load->model('nota_model');
-        $data = $this->nota_model->get(array('INV_NOTA_ID'=>$this->delete('INV_NOTA_ID')));
+        $data = $this->nota_model->get(array('INV_NOTA_ID'=>$this->put('INV_NOTA_ID')));
         if (isset($data)){
-            $deleted = $this->nota_model->force_delete(array('INV_NOTA_ID'=>$this->delete('INV_NOTA_ID')));
+            $deleted = $this->nota_model->force_delete(array('INV_NOTA_ID'=>$this->put('INV_NOTA_ID')));
             if (!$deleted){
                 $this->response( array('status'=>'failure', 
                 'message'=>'an expected error trying to delete '),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
@@ -102,20 +103,8 @@ class Nota extends REST_Controller {
             }
         } else {            
             $this->response( array('status'=>'failure', 
-            'message'=>'no data found ',REST_Controller::HTTP_CONFLICT));
+            'message'=>'the specified data already exists',REST_Controller::HTTP_CONFLICT));
         }
-    }
-
-    function search_post() {
-        $postdata = ($_POST);
-        // print_r($postdata);die;
-        $this->load->model('nota_model');
-        if (isset($postdata)) {
-                $result= $this->nota_model->getData($postdata);
-        } else {               
-            $result= $this->nota_model->get_all();
-        }      
-        $this->response($result, 200);  
     }
 
 }

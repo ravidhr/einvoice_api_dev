@@ -1,6 +1,6 @@
 <?php
 
-class Telepon_model extends MY_Model {
+class telepon_model extends MY_Model {
 
     public $table = 'TELEPON';
     public $primary_key = 'ID';
@@ -12,8 +12,8 @@ class Telepon_model extends MY_Model {
     
     public function __construct()
 	{
-        // $this->after_get[] = 'remove_sensitive_data';
-        $this->after_get[] = 'prep_data';
+        $this->after_get[] = 'remove_sensitive_data';
+        $this->before_create[] = 'prep_data';
 		parent::__construct();
     }
     
@@ -24,8 +24,7 @@ class Telepon_model extends MY_Model {
     }
 
     protected function prep_data($user){
-        // $user['NAMA'] = md5($user['NAMA']);
-        // $user['NAMA'] = '123';
+        $user['NAMA'] = md5($user['NAMA']);
         return $user;
     }
 

@@ -1084,6 +1084,7 @@ abstract class REST_Controller extends CI_Controller {
     {
         // Get the api key name variable set in the rest config file
         $api_key_variable = $this->config->item('rest_key_name');
+
         // Work out the name of the SERVER entry based on config
         $key_name = 'HTTP_' . strtoupper(str_replace('-', '_', $api_key_variable));
 
@@ -1140,13 +1141,6 @@ abstract class REST_Controller extends CI_Controller {
                 }
             }
 
-			// print_r($key);die;
-            $decodedToken = AUTHORIZATION::validateTimestamp($key);
-			// print_r($decodedToken);die;
-            if ($decodedToken == FALSE) {
-                return FALSE;
-            }
-            
             return TRUE;
         }
 
@@ -1205,21 +1199,20 @@ abstract class REST_Controller extends CI_Controller {
         //
 
         // Insert the request into the log table
-
         $is_inserted = $this->rest->db
             ->insert(
                 $this->config->item('rest_logs_table'), array(
-                'URI' => $this->uri->uri_string(),
-                'METHOD' => $this->request->method,
-                'PARAMS' => $this->_args ? ($this->config->item('rest_logs_json_params') === TRUE ? json_encode($this->_args) : serialize($this->_args)) : NULL,
-                'API_KEY' => isset($this->rest->key) ? $this->rest->key : '',
-                'IP_ADDRESS' => $this->input->ip_address(),
-                'TIME' => time(),
-                'AUTHORIZED' => $authorized
+                'uri' => $this->uri->uri_string(),
+                'method' => $this->request->method,
+                'params' => $this->_args ? ($this->config->item('rest_logs_json_params') === TRUE ? json_encode($this->_args) : serialize($this->_args)) : NULL,
+                'api_key' => isset($this->rest->key) ? $this->rest->key : '',
+                'ip_address' => $this->input->ip_address(),
+                'time' => time(),
+                'authorized' => $authorized
             ));
 
         // Get the last insert id to update at a later stage of the request
-        // $this->_insert_id = $this->rest->db->insert_id();
+        $this->_insert_id = $this->rest->db->insert_id();
 
         return $is_inserted;
     }

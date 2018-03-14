@@ -49,6 +49,7 @@ class SimopInvoiceHeader extends REST_Controller {
 			'CURRENCY_CODE'=>$this->post('CURRENCY_CODE'),
 			'CURRENCY_RATE'=>$this->post('CURRENCY_RATE'),
 			'CURRENCY_DATE'=>$this->post('CURRENCY_DATE'),
+			'AMOUNT'=>$this->post('AMOUNT'),
 			'CUSTOMER_NUMBER'=>$this->post('CUSTOMER_NUMBER'),
 			'CUSTOMER_NAME'=>$this->post('CUSTOMER_NAME'),
 			'CUSTOMER_NPWP'=>$this->post('CUSTOMER_NPWP'),
@@ -87,7 +88,15 @@ class SimopInvoiceHeader extends REST_Controller {
 			'INTERFACE_HEADER_ATTRIBUTE13'=>$this->post('INTERFACE_HEADER_ATTRIBUTE13'),
 			'INTERFACE_HEADER_ATTRIBUTE14'=>$this->post('INTERFACE_HEADER_ATTRIBUTE14'),
 			'INTERFACE_HEADER_ATTRIBUTE15'=>$this->post('INTERFACE_HEADER_ATTRIBUTE15'),
-			'DOC_NUM'=>$this->post('DOC_NUM')			
+			'PER_KUNJUNGAN_FROM'=>$this->post('PER_KUNJUNGAN_FROM'),
+			'PER_KUNJUNGAN_TO'=>$this->post('PER_KUNJUNGAN_TO'),
+			'DOC_NUM'=>$this->post('DOC_NUM'),
+			'PPN_DIPUNGUT_SENDIRI'=>$this->post('PPN_DIPUNGUT_SENDIRI'),
+			'PPN_DIPUNGUT_PEMUNGUT'=>$this->post('PPN_DIPUNGUT_PEMUNGUT'),
+			'PPN_TIDAK_DIPUNGUT'=>$this->post('PPN_TIDAK_DIPUNGUT'),
+			'PPN_DIBEBASKAN'=>$this->post('PPN_DIBEBASKAN'),
+			'UANG_JAMINAN'=>$this->post('UANG_JAMINAN'),
+			'PIUTANG'=>$this->post('PIUTANG')
 			));
 			
 			$parameters=array( 
@@ -101,9 +110,11 @@ class SimopInvoiceHeader extends REST_Controller {
 				array('name'=>':CURRENCY_CODE','value'=>$this->post('CURRENCY_CODE'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':CURRENCY_RATE','value'=>$this->post('CURRENCY_RATE'),'length'=>100,'type'=>SQLT_INT),
 				array('name'=>':CURRENCY_DATE','value'=>$this->post('CURRENCY_DATE'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':AMOUNT','value'=>$this->post('AMOUNT'),'length'=>100,'type'=>SQLT_INT),
 				array('name'=>':CUSTOMER_NUMBER','value'=>$this->post('CUSTOMER_NUMBER'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':CUSTOMER_NAME','value'=>$this->post('CUSTOMER_NAME'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':CUSTOMER_NPWP','value'=>$this->post('CUSTOMER_NPWP'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':CUSTOMER_ADDRESS','value'=>$this->post('CUSTOMER_ADDRESS'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':STATUS','value'=>$this->post('STATUS'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':HEADER_CONTEXT','value'=>$this->post('HEADER_CONTEXT'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':HEADER_SUB_CONTEXT','value'=>$this->post('HEADER_SUB_CONTEXT'),'length'=>100,'type'=>SQLT_CHR),
@@ -139,7 +150,15 @@ class SimopInvoiceHeader extends REST_Controller {
 				array('name'=>':INTERFACE_HEADER_ATTRIBUTE13','value'=>$this->post('INTERFACE_HEADER_ATTRIBUTE13'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':INTERFACE_HEADER_ATTRIBUTE14','value'=>$this->post('INTERFACE_HEADER_ATTRIBUTE14'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':INTERFACE_HEADER_ATTRIBUTE15','value'=>$this->post('INTERFACE_HEADER_ATTRIBUTE15'),'length'=>100,'type'=>SQLT_CHR),	
-				array('name'=>':DOC_NUM','value'=>$this->post('DOC_NUM'),'length'=>100,'type'=>SQLT_CHR),	
+				array('name'=>':PER_KUNJUNGAN_FROM','value'=>$this->post('PER_KUNJUNGAN_FROM'),'length'=>100,'type'=>SQLT_CHR),	
+				array('name'=>':PER_KUNJUNGAN_TO','value'=>$this->post('PER_KUNJUNGAN_TO'),'length'=>100,'type'=>SQLT_CHR),	
+				array('name'=>':DOC_NUM','value'=>$this->post('DOC_NUM'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':PPN_DIPUNGUT_SENDIRI','value'=>$this->post('PPN_DIPUNGUT_SENDIRI'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':PPN_DIPUNGUT_PEMUNGUT','value'=>$this->post('PPN_DIPUNGUT_PEMUNGUT'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':PPN_TIDAK_DIPUNGUT','value'=>$this->post('PPN_TIDAK_DIPUNGUT'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':PPN_DIBEBASKAN','value'=>$this->post('PPN_DIBEBASKAN'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':UANG_JAMINAN','value'=>$this->post('UANG_JAMINAN'),'length'=>100,'type'=>SQLT_CHR),
+				array('name'=>':PIUTANG','value'=>$this->post('PIUTANG'),'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':out_status','value'=>&$out_status,'length'=>100,'type'=>SQLT_CHR),
 				array('name'=>':out_messages','value'=>&$out_messages,'length'=>1000,'type'=>SQLT_CHR)
 			);
@@ -147,9 +166,8 @@ class SimopInvoiceHeader extends REST_Controller {
 		//print_r($parameters);
         //die();		
 		$this->konsolidasi_db->stored_procedure('invoice.xeinvc_api_konsolidasi_pkg','insert_ar_invoice_header',$parameters);
-		echo $out_status;
-		echo $out_messages;
-		//die();
+		
+		$this->response( array('status'=>$out_status, 'message'=>$out_messages));
 					
 			
         } else {

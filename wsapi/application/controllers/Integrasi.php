@@ -12,14 +12,9 @@ class Integrasi extends REST_Controller {
     }
 
     function index_get() {
-                
-        $this->load->model('other_model');
-        $data = $this->integrasi_model->getdata('consolidasi','XEINVC_AR_INVOICE_HEADER');
-        $data = $this->integrasi_model->InsertItosTTH($data);
-        //print_r($data);die;
-
         $id = $this->uri->segment(2);
         $id2 = $this->uri->segment(3);
+        // die($id2);
         $this->load->model('integrasi_model');
         if ($id == '') {
                 $data= $this->integrasi_model->get_all();
@@ -63,6 +58,7 @@ class Integrasi extends REST_Controller {
 
     function index_post() {
         $id = $this->uri->segment(2);
+		
         $this->load->library('form_validation');
         $this->form_validation->set_data($this->put());
         

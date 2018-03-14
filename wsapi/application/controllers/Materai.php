@@ -38,7 +38,7 @@ class Materai extends REST_Controller {
         if($this->form_validation->run('materai_put') != false){
             $this->load->model('materai_model');
             $exist = $this->materai_model->get(array('INV_EMATERAI_ID'=> $this->put('INV_EMATERAI_ID')));
-            // print_r($exist); die;
+            // print_r($data); die;
             if(($exist==null)){         
                 $data = $this->put();
                 $data_id = $this->materai_model->insert($data); 

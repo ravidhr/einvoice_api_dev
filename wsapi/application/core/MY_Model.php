@@ -464,16 +464,13 @@ class MY_Model extends CI_Model
      */
     public function update($data = NULL, $column_name_where = NULL, $escape = TRUE)
     {
-        // print_r($data);die;
         if(!isset($data) && $this->validated!=FALSE)
         {
-            // die('1');
             $data = $this->validated;
             $this->validated = FALSE;
         }
         elseif(!isset($data))
         {
-            // die('2');
             $this->_database->reset_query();
             return FALSE;
         }
@@ -508,7 +505,6 @@ class MY_Model extends CI_Model
                     $this->_database->where($column_name_where, $column_value);
                 }
             }
-
             if($escape)
             {
                 if($this->_database->update($this->table, $data))

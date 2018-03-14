@@ -1,6 +1,6 @@
 <?php
 
-class Tthnotaall_model extends MY_Model {
+class tthnotaall_model extends MY_Model {
     
     
     public function __construct()

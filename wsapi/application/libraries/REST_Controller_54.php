@@ -1136,13 +1136,6 @@ abstract class REST_Controller extends CI_Controller {
                 }
             }
 
-			// print_r($key);die;
-            $decodedToken = AUTHORIZATION::validateTimestamp($key);
-			// print_r($decodedToken);die;
-            if ($decodedToken == FALSE) {
-                return FALSE;
-            }
-            
             return TRUE;
         }
 

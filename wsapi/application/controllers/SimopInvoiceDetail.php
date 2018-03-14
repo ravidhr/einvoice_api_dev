@@ -101,9 +101,9 @@ class SimopInvoiceDetail extends REST_Controller {
 		//print_r($parameters);
         //die();		
 		$this->konsolidasi_db->stored_procedure('invoice.xeinvc_api_konsolidasi_pkg','insert_ar_invoice_lines',$parameters);
-		echo $out_status;
-		echo $out_messages;
-		//die();
+		
+		 $this->response( array('status'=>$out_status, 
+            'message'=>$out_messages));
 		
 			
         } else {

@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database','form_validation','format','session');
+$autoload['libraries'] = array('form_validation','format','session',/**Start modify Gagat 02 FEB 2018 */'database'/** End Modify Gagat */);
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','form','jwt','authorization','date');
+$autoload['helper'] = array('url','form','date');
 
 /*
 | -------------------------------------------------------------------
@@ -103,7 +103,7 @@ $autoload['helper'] = array('url','form','jwt','authorization','date');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('jwt');
+$autoload['config'] = array();
 
 /*
 | -------------------------------------------------------------------
