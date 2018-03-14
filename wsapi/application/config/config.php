@@ -26,7 +26,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // Modified by Ivan Tcholakov, 01-NOV-2015.
 // A customized URL detector is used here.
 //gagat open base_url
-$config['base_url'] = 'http://172.20.13.97/wsap/';
 //end gagat open base url
 $_helper_dir = APPPATH.'helpers/';
 require_once $_helper_dir.'resolve_path.php';

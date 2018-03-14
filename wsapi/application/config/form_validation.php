@@ -6,6 +6,12 @@ $config = array(
     ),
     'all_post' => array(
     ),
+    'signbank_put' => array(
+        array('field' => 'INV_BANK_ID', 'label'=> 'INV_BANK_ID', 'rules'=> 'trim|required'),
+    ),
+    'signbank_post' => array(
+        array('field' => 'INV_SIGNBANK_ID', 'label'=> 'INV_SIGNBANK_ID', 'rules'=> 'trim|required'),
+    ),
     'userrole_put' => array(
         array('field' => 'INV_USER_ID', 'label'=> 'INV_USER_ID', 'rules'=> 'trim|required'),
     ),

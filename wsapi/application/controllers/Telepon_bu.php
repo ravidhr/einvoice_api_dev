@@ -5,25 +5,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 use Restserver\Libraries\REST_Controller;
 
-class User extends REST_Controller {
+class Telepon extends REST_Controller {
 
-    function __construct($config = 'rest') {
+    function __construct($config = 'rest') {        
         parent::__construct($config);
     }
 
-    
     function index_get() {
+        //secure token
+        // $this->load->model('mst_user_model');
+        // $headers = $this->input->request_headers();
+        // print_r($headers);die;
+        // $this->mst_user_model->check_user($headers);
+        //-----------------------
+
         $id = $this->uri->segment(2);
-        //die($id);
-        $this->load->model('user_model');
+        $id2 = $this->uri->segment(3);
+        // die($id);
+        $this->load->model('telepon_model');
+        //----
         if ($id == '') {
-                $user= $this->user_model->get_all();
+                $result= $this->telepon_model->get_all();
         } else {
-                $total_posts = $this->user_model->count_rows(); 
-                // retrieve the total number of posts
-                $user = $this->user_model->paginate(10,$total_posts);
+            if($id=='page' && $id2!==''){
+                $total_posts = $this->telepon_model->count_rows(); // retrieve the total number of posts
+                $result = $this->telepon_model->paginate(10,$total_posts);
+            } else {           
+                if($id!=='' && $id2==''){
+                    $result= $this->telepon_model->get(array('ID'=>$id));  
+                }
+            }
         }        
-        $this->response($user, 200);
+        $this->response($result, 200);
     }
     
     function index_put() {
@@ -32,7 +45,7 @@ class User extends REST_Controller {
         
         if($this->form_validation->run('user_put') != false){
             $this->load->model('user_model');
-            $exist = $this->user_model->get(array('INV_USER_USERNAME'=> $this->put('INV_USER_USERNAME')));
+            $exist = $this->user_model->get_by(array('USERNAME'=> $this->put('USERNAME')));
             if($exist){
                 $this->response( array('status'=>'failure', 
                 'message'=>'the specified user already exists',REST_Controller::HTTP_CONFLICT));
@@ -59,17 +72,16 @@ class User extends REST_Controller {
         
         if($this->form_validation->run('user_post') != false){
             $this->load->model('user_model');
-            $data = $this->post();
+            $user = $this->post();
 
-            $safe_data = $this->user_model->get(array('INV_USER_ID'=>$this->post('INV_USER_ID')));
-            if(!isset($safe_data)){
+            $safe_user = !isset($user['USERNAME']) || !$this->user_model->get_by(array('USERNAME'=> $user['USERNAME']));
+            if(!$safe_user){
                 $this->response( array('status'=>'failure', 
-                'message'=>'the specified no data to update',REST_Controller::HTTP_CONFLICT));
+                'message'=>'the specified user already in used',REST_Controller::HTTP_CONFLICT));
+                die;
             }
-
-            // print_r($data);die;
-            $data_id = $this->user_model->update( $data,array('INV_USER_ID'=>$this->post('INV_USER_ID')));            
-            if (!$data_id){
+            $user_id = $this->user_model->update( $id, $user);            
+            if (!$user_id){
                 $this->response( array('status'=>'failure', 
                 'message'=>$this->form_validation->get_errors_as_array()),REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
             } else {
@@ -95,18 +107,6 @@ class User extends REST_Controller {
                 $this->response(array('status'=>'success','message'=>'deleted'));
             }
         }
-    }
-    
-    function search_post() {
-        $postdata = ($_POST);
-        // print_r($postdata);die;
-        $this->load->model('user_model');
-        if (isset($postdata)) {
-                $result= $this->user_model->getData($postdata);
-        } else {               
-            $result= $this->user_model->get_all();
-        }      
-        $this->response($result, 200);  
     }
 
 }

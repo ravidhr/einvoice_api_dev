@@ -23,4 +23,36 @@ class entity_model extends MY_Model {
 		parent::__construct();
 	}
 
+    public function getData($data){
+        
+        $where = array();
+        if(isset($data['INV_ENTITY_CODE'])){
+            if($data['INV_ENTITY_CODE']!=''){
+                $where['INV_ENTITY_CODE']=$data['INV_ENTITY_CODE'];
+            }
+        }
+        if(isset($data['INV_ENTITY_NAME'])){
+            if($data['INV_ENTITY_NAME']!=''){
+                $where['INV_ENTITY_NAME']=$data['INV_ENTITY_NAME'];
+            }
+        }
+        // print_r($where);die;
+        // die($select);
+        $this->db->select('*')
+            ->from($this->table)
+            ->like($where);
+
+        $query = $this->db->get();
+        $result = $query->result_array();
+        
+        return $result;
+    }
+	public function getLastId(){
+            
+        $query = $this->db->query("select MAX(INV_ENTITY_ID) as LASTID from INV_MST_ENTITY");
+
+        $result = $query->row();
+        
+        return !empty($result->LASTID) ? $result->LASTID : 0;
+	}
 }

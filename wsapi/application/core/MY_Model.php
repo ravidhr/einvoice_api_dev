@@ -399,7 +399,9 @@ class MY_Model extends CI_Model
                 $this->_prep_after_write();
                 // $id = $this->_database->insert_id();
                 // $return = $this->trigger('after_create',$id);
-                return $id;
+                
+                // return $id;
+                return TRUE;
             }
             return FALSE;
         }
@@ -473,7 +475,7 @@ class MY_Model extends CI_Model
             return FALSE;
         }
         // Prepare the data...
-        $data = $this->_prep_before_write($data);
+        //$data = $this->_prep_before_write($data);
 
         //now let's see if the array is a multidimensional one (multiple rows insert)
         $multi = $this->is_multidimensional($data);
@@ -507,10 +509,12 @@ class MY_Model extends CI_Model
             {
                 if($this->_database->update($this->table, $data))
                 {
-                    $this->_prep_after_write();
-                    $affected = $this->_database->affected_rows();
-                    $return = $this->trigger('after_update',$affected);
-                    return $return;
+                    #ERROR PHP 7
+                    // $this->_prep_after_write();
+                    // $affected = $this->_database->affected_rows();
+                    // $return = $this->trigger('after_update',$affected);
+                    // return $return;
+                    return TRUE;
                 }
             }
             else

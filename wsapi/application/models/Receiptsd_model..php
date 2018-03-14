@@ -1,10 +1,10 @@
 <?php
 
-class Group_model extends MY_Model {
+class Receiptsd_model extends MY_Model {
     
     // public $_database_connection = 'consolidasi';
-    public $table = 'MST_GROUP';
-    public $primary_key = 'ID_GROUP';
+    public $table = 'XEINVC_AR_RECEIPT_LINES';
+    public $primary_key = 'LINE_NUMBER';
     protected $return_type = 'array';
     public function __construct()
 	{
