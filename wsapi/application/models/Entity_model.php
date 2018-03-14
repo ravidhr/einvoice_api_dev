@@ -31,6 +31,11 @@ class entity_model extends MY_Model {
                 $where['INV_ENTITY_CODE']=$data['INV_ENTITY_CODE'];
             }
         }
+        if(isset($data['INV_ENTITY_ID'])){
+            if($data['INV_ENTITY_ID']!=''){
+                $where['INV_ENTITY_ID']=$data['INV_ENTITY_ID'];
+            }
+        }
         if(isset($data['INV_ENTITY_NAME'])){
             if($data['INV_ENTITY_NAME']!=''){
                 $where['INV_ENTITY_NAME']=$data['INV_ENTITY_NAME'];
